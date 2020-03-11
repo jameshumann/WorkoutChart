@@ -1,3 +1,5 @@
 __pycache__
 vscws.code-workspace
 .vscode/.ropeproject
+*.code-workspace
+settings.json
