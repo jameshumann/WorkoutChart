@@ -12,7 +12,7 @@ def main():
     rowEnd = docWidth - margin
     horizontalArea = rowEnd - rowBegin
     twoWeekWidth = (horizontalArea/17) * 14
-    rowHeight = 10
+    rowHeight = 15
     interRowSpace = 8
 
     win = GraphWin("canvas", docWidth, docHeight)
@@ -40,9 +40,6 @@ def main():
 
     rowTop = rowBottom + interRowSpace
     rowBottom = rowTop + rowHeight
-
-    print(rowTop)
-    print(rowBottom)
     """ Add rows for Lunges """
     numLunges =  31/1.5 #per month
     numLunges = round(numLunges)
@@ -59,6 +56,49 @@ def main():
     
     for rect in range(inBottomRow):
         r = Rectangle(Point(rowBegin + bottomOffset + lungesWidth*rect, rowTop + 300), Point(rowBegin + bottomOffset + lungesWidth*(rect+1), rowBottom + 300))
+        r.draw(win)
+
+
+    rowTop = rowBottom + interRowSpace
+    rowBottom = rowTop + rowHeight
+    """ Add rows for PT """
+    nameEx = "PT Exercise"
+    numEx =  31*2 #per month
+    numEx = round(numEx)
+    pd = numEx / 31.0 # per day
+    p17d = pd * 17  #per 17 days
+    exWidth = horizontalArea / p17d
+    inTopRow = math.ceil(pd*14)
+    inBottomRow = numEx - inTopRow
+    bottomOffset = inTopRow * exWidth - twoWeekWidth
+
+    for rect in range(inTopRow):
+        r = Rectangle(Point(rowBegin + exWidth*rect, rowTop), Point(rowBegin + exWidth*(rect+1), rowBottom))
+        r.draw(win)
+    
+    for rect in range(inBottomRow):
+        r = Rectangle(Point(rowBegin + bottomOffset + exWidth*rect, rowTop + 300), Point(rowBegin + bottomOffset + exWidth*(rect+1), rowBottom + 300))
+        r.draw(win)
+    
+    rowTop = rowBottom + interRowSpace
+    rowBottom = rowTop + rowHeight
+    """ Add rows for cardio """
+    nameEx = "Cardio"
+    numEx =  (8/7)*31 #per month
+    numEx = round(numEx)
+    pd = numEx / 31.0 # per day
+    p17d = pd * 17  #per 17 days
+    exWidth = horizontalArea / p17d
+    inTopRow = math.ceil(pd*14)
+    inBottomRow = numEx - inTopRow
+    bottomOffset = inTopRow * exWidth - twoWeekWidth
+
+    for rect in range(inTopRow):
+        r = Rectangle(Point(rowBegin + exWidth*rect, rowTop), Point(rowBegin + exWidth*(rect+1), rowBottom))
+        r.draw(win)
+    
+    for rect in range(inBottomRow):
+        r = Rectangle(Point(rowBegin + bottomOffset + exWidth*rect, rowTop + 300), Point(rowBegin + bottomOffset + exWidth*(rect+1), rowBottom + 300))
         r.draw(win)
 
     win.getMouse()
