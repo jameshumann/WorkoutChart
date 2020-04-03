@@ -1,4 +1,3 @@
-#workoutChart.p
 from graphics import *
 import math
 
@@ -12,7 +11,8 @@ def main():
     rowHeight = 15
     interRowSpace = 8
     spaceBetweenRowGroups = 300
-    month = "March 2020"
+    month = "March"
+    year = "2020"
 
     rowBegin = margin + labelWidth
     rowEnd = docWidth - margin
@@ -187,12 +187,12 @@ def main():
     labely_b = docHeight - margin
     labely = (labely_t + labely_b)/2
     # (rowTop + 300) + ((rowTop + 300) + (docHeight - margin)) / 2
-    bl = "Month: " + month + "\n\n" + "Cardio = 0.25 mi jog, 1.5 volleyball game, 1 mi hike,\n2 mi bike ride, 1 Culver stairs, 2 city stairs"
+    bl = "Month: " + month + " " + year + "\n\n" + "Cardio = 0.25 mi jog, 1.5 volleyball game, 1 mi hike,\n2 mi bike ride, 1 Culver stairs, 2 city stairs"
     t = Text(Point(labelx, labely), bl)
     t.draw(win)
 
-    
-
+    # saves the current TKinter object in postscript format
+    win.postscript(file="graphic.eps")
     win.getMouse()
     win.close()
 
