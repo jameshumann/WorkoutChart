@@ -12,6 +12,7 @@ def main():
     rowHeight = 15
     interRowSpace = 8
     spaceBetweenRowGroups = 300
+    month = "March 2020"
 
     rowBegin = margin + labelWidth
     rowEnd = docWidth - margin
@@ -61,6 +62,7 @@ def main():
     inBottomRow = numPushups - inTopRow
     bottomOffset = inTopRow * pushupWidth - twoWeekWidth
     Text(Point((margin + labelWidth/2),(rowTop + interRowSpace*.8)),nameEx).draw(win)
+    Text(Point((margin + labelWidth/2),(rowTop + interRowSpace*.8 + spaceBetweenRowGroups)),nameEx).draw(win)
 
     for rect in range(inTopRow):
         r = Rectangle(Point(rowBegin + pushupWidth*rect, rowTop), Point(rowBegin + pushupWidth*(rect+1), rowBottom))
@@ -86,6 +88,7 @@ def main():
     inBottomRow = numLunges - inTopRow
     bottomOffset = inTopRow * lungesWidth - twoWeekWidth
     Text(Point((margin + labelWidth/2),(rowTop + interRowSpace*.8)),nameEx).draw(win)
+    Text(Point((margin + labelWidth/2),(rowTop + interRowSpace*.8 + spaceBetweenRowGroups)),nameEx).draw(win)
 
     for rect in range(inTopRow):
         r = Rectangle(Point(rowBegin + lungesWidth*rect, rowTop), Point(rowBegin + lungesWidth*(rect+1), rowBottom))
@@ -111,6 +114,7 @@ def main():
     inBottomRow = numEx - inTopRow
     bottomOffset = inTopRow * exWidth - twoWeekWidth
     Text(Point((margin + labelWidth/2),(rowTop + interRowSpace*.8)),nameEx).draw(win)
+    Text(Point((margin + labelWidth/2),(rowTop + interRowSpace*.8 + spaceBetweenRowGroups)),nameEx).draw(win)
 
     for rect in range(inTopRow):
         r = Rectangle(Point(rowBegin + exWidth*rect, rowTop), Point(rowBegin + exWidth*(rect+1), rowBottom))
@@ -124,6 +128,7 @@ def main():
     
     rowTop = rowBottom + interRowSpace
     rowBottom = rowTop + rowHeight
+
     """ Add rows for cardio """
     nameEx = "Cardio"
     numEx =  (8/7)*30 #per month
@@ -135,6 +140,7 @@ def main():
     inBottomRow = numEx - inTopRow
     bottomOffset = inTopRow * exWidth - twoWeekWidth
     Text(Point((margin + labelWidth/2),(rowTop + interRowSpace*.8)),nameEx).draw(win)
+    Text(Point((margin + labelWidth/2),(rowTop + interRowSpace*.8 + spaceBetweenRowGroups)),nameEx).draw(win)
 
     for rect in range(inTopRow):
         r = Rectangle(Point(rowBegin + exWidth*rect, rowTop), Point(rowBegin + exWidth*(rect+1), rowBottom))
@@ -148,9 +154,11 @@ def main():
 
     rowTop = rowBottom + interRowSpace
     rowBottom = rowTop + rowHeight
+
     """ Add rows for pullups """
     nameEx = "Pullups x 5"
     Text(Point((margin + labelWidth/2),(rowTop + interRowSpace*.8)),nameEx).draw(win)
+    Text(Point((margin + labelWidth/2),(rowTop + interRowSpace*.8 + spaceBetweenRowGroups)),nameEx).draw(win)
     numEx =  (1.2)*30 #per month
     numEx = round(numEx * (31/30))
     pd = numEx / 31.0 # per day
@@ -169,6 +177,19 @@ def main():
         r = Rectangle(Point(rowBegin + bottomOffset + exWidth*rect, rowTop + 300), Point(rowBegin + bottomOffset + exWidth*(rect+1), rowBottom + 300))
         r.setFill("lightgrey")
         r.draw(win)
+
+    rowTop = rowBottom + interRowSpace
+    rowBottom = rowTop + rowHeight
+
+    """ Add label at bottom """
+    labelx = margin + (7*dayWidth + labelWidth)/2
+    labely_t = rowTop + 300
+    labely_b = docHeight - margin
+    labely = (labely_t + labely_b)/2
+    # (rowTop + 300) + ((rowTop + 300) + (docHeight - margin)) / 2
+    bl = "Month: " + month + "\n\n" + "Cardio = 0.25 mi jog, 1.5 volleyball game, 1 mi hike,\n2 mi bike ride, 1 Culver stairs, 2 city stairs"
+    t = Text(Point(labelx, labely), bl)
+    t.draw(win)
 
     
 
