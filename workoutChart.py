@@ -192,7 +192,7 @@ def main():
     t.draw(win)
 
     # saves the current TKinter object in postscript format
-    win.postscript(file="graphic.eps")
+    win.postscript(file="graphic.ps")
     win.getMouse()
     win.close()
 
