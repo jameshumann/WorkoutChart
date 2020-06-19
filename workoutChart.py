@@ -187,7 +187,7 @@ def main():
     labely_b = docHeight - margin
     labely = (labely_t + labely_b)/2
     # (rowTop + 300) + ((rowTop + 300) + (docHeight - margin)) / 2
-    bl = "Month: " + month + " " + year + "\n\n" + "Cardio = 0.25 mi jog, 1.5 volleyball game, 1 mi hike,\n2 mi bike ride, 1 Culver stairs, 2 city stairs"
+    bl = "Month: " + month + " " + year + "\n\n" + "Cardio = 0.25 mi jog, 1.5 volleyball game, 0.75 mi hike,\n2 mi bike ride, 1 Culver stairs, 2 city stairs"
     t = Text(Point(labelx, labely), bl)
     t.draw(win)
 
