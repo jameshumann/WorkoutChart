@@ -31,7 +31,7 @@ class WorkoutChart():
         #print(self.panelBottomLeft)
 
         self.month = month
-        self.note = "*Cardio = 0.25 mi run, 30 min walk, 15 min hike, 1 Culver stairs, 2 Mar Vista stairs, 2 mi bike + blah + a a a a a a a a a a a blah + blah + blah+ blah adflasdfl;kj blah+ blah+ blah"
+        self.note = "*Cardio = 0.25 mi run, 30 min walk, 15 min hike, 1 Culver stairs, 2 Mar Vista stairs, 2 mi bike"
 
     # def init(self):
     #     pass
@@ -53,12 +53,12 @@ class WorkoutChart():
         #ax.add_patch(rectangle)
         self.addLines(ax, self.month)
 
-        workoutList = [['Lunges x10', 2, 3],
-                       ['Pushups x5', 2, 7],
-                       ['Pullups x10', 1, 1],
-                       ['Make out w/ Rachel', 2, 1],
+        workoutList = [['Lunges x10 45kg', 2, 7],
+                       ['Squats X5 20kg', 2, 7],
+                       ['Pushups x10', 2, 1],
+                       ['Pullups x5', 1, 1],
                        ['Cardio*', 8, 7],
-                       ['Cheeseburger', 5, 31]]
+                       ['PT exercise', 1.8, 1]]
 
         #self.addRow(ax, self.panelBottomLeft[1], 'January', workoutList[0][0], workoutList[0][1], workoutList[0][2])
         #self.addRow(ax, self.panelBottomLeft[1] + self.rowHeight + self.interRowSpacing, 'January', workoutList[1][0], workoutList[1][1], workoutList[1][2])
