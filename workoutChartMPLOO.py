@@ -54,10 +54,10 @@ class WorkoutChart():
         self.addLines(ax, self.month)
 
         workoutList = [['Lunges x10 45kg', 2, 7],
-                       ['Squats X5 20kg', 2, 7],
+                       ['Squats X5 25kg', 2.25, 7],
                        ['Pushups x10', 2, 1],
                        ['Pullups x5', 1, 1],
-                       ['Cardio*', 8, 7],
+                       ['Cardio*', 8.2, 7],
                        ['PT exercise', 1.8, 1]]
 
         #self.addRow(ax, self.panelBottomLeft[1], 'January', workoutList[0][0], workoutList[0][1], workoutList[0][2])
@@ -171,5 +171,5 @@ class WorkoutChart():
 
 
 if __name__ == "__main__":
-    c = WorkoutChart('July')
+    c = WorkoutChart('September')
     c.main()
