@@ -3,10 +3,15 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 from textwrap import fill
+import json
+import csv
+from pathlib import Path
+
+
 
 class WorkoutChart():
 
-    def __init__(self, month):
+    def __init__(self, month, file_name = "jamesJan.csv"):
         self.pageWidth = 11 #inches
         self.pageHeight = 8.5
 
@@ -31,7 +36,7 @@ class WorkoutChart():
         #print(self.panelBottomLeft)
 
         self.month = month
-        self.note = "*Cardio = 0.25 mi run, 30 min walk, 15 min hike, 1 Culver stairs, 2 Mar Vista stairs, 2 mi bike"
+        self.note = "*Cardio = 0.25 mi run, 30 min walk, 15 min hike, 1 Culver stairs, 2 Mar Vista stairs, 1.5 mi bike"
 
     # def init(self):
     #     pass
@@ -47,23 +52,40 @@ class WorkoutChart():
         ax = fig.add_subplot(1,1,1)
         #fig.subplots_adjust(left=0.1, right=.9, top=.9, bottom=0.1)
         fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
-        ax.set_xlim([0,11])
-        ax.set_ylim([0,8.5])
+        ax.set_xlim([0,self.pageWidth])
+        ax.set_ylim([0,self.pageHeight])
         #rectangle = plt.Rectangle((4,4), 2, 1, ec='black', fc='white')
         #ax.add_patch(rectangle)
+        ax.patch.set_visible(False)
+        ax.axis('off')
         self.addLines(ax, self.month)
 
-        workoutList = [['Lunges x10 45kg', 2, 7],
-                       ['Squats X5 25kg', 2.25, 7],
-                       ['Pushups x10', 2, 1],
-                       ['Pullups x5', 1, 1],
+        workoutList = [['Lunges x10 45kg', 1.9, 7],
+                       ['Squats X5 35kg', 2.25, 7],
+                       ['Pushups x10', 1.85, 1],
+                       ['Pullups x5', 0.9, 1],
                        ['Cardio*', 8.2, 7],
                        ['PT exercise', 1.8, 1]]
 
-        #self.addRow(ax, self.panelBottomLeft[1], 'January', workoutList[0][0], workoutList[0][1], workoutList[0][2])
-        #self.addRow(ax, self.panelBottomLeft[1] + self.rowHeight + self.interRowSpacing, 'January', workoutList[1][0], workoutList[1][1], workoutList[1][2])
-        #self.addRow(ax, self.panelBottomLeft[1] + self.rowHeight*2 + self.interRowSpacing*2, 'January', workoutList[2][0], workoutList[2][1], workoutList[2][2])
-        #self.addRow(ax, self.panelBottomLeft[1], 'January', 'Pushups x5', 2, 7)
+        # path = Path(__file__).parent / "jamesJan.csv"
+        # with path.open() as f:
+        #     test = list(csv.reader(f))
+        #     print(test)
+        #     print(workoutList)
+
+        #     # workoutList = test[1:]
+        #     used = test[1:len(test)]
+        #     print(used)
+        #     newList = []
+        #     for line in used:
+        #         entry = [str(line[0]), float(line[1]), float(line[2])]
+        #         newList.append(entry)
+            
+
+        #     workoutList = newList
+        #     print(workoutList)
+
+
         y = 0
         for wo in workoutList:
             self.addRow(ax, self.panelBottomLeft[1] + y, self.month, wo[0], wo[1], wo[2])
@@ -71,6 +93,9 @@ class WorkoutChart():
 
         self.addTitle(ax, self.month)
         self.addNote(ax, self.note)
+
+        plt.margins(0,0)
+        plt.savefig(self.month + ".pdf")
 
         plt.show()
 
@@ -170,6 +195,7 @@ class WorkoutChart():
 
 
 
+
 if __name__ == "__main__":
-    c = WorkoutChart('September')
+    c = WorkoutChart('March')
     c.main()

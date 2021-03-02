@@ -1,0 +1,15 @@
+{
+    "month": "January",
+    "exercises": [
+        {
+            "label": "pushups x5",
+            "number": 2,
+            "per_days": 1.5
+        },
+        {
+            "label": "cardio",
+            "number": 8,
+            "per_days": 7
+        }
+    ]
+}
