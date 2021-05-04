@@ -36,7 +36,7 @@ class WorkoutChart():
         #print(self.panelBottomLeft)
 
         self.month = month
-        self.note = "*Cardio = 0.25 mi run, 30 min walk, 15 min hike, 1 Culver stairs, 2 Mar Vista stairs, 1.5 mi bike"
+        self.note = "*Cardio = 0.25 mi run, 30 min walk, 15 min hike, 1 Culver stairs, 2 Mar Vista stairs, 15 min bike   Core = 30 s prone plank, 15 s side plank, 10 bench situp, 30 crunch"
 
     # def init(self):
     #     pass
@@ -63,9 +63,10 @@ class WorkoutChart():
         workoutList = [['Lunges x10 45kg', 1.9, 7],
                        ['Squats X5 35kg', 2.25, 7],
                        ['Pushups x10', 1.85, 1],
-                       ['Pullups x5', 0.9, 1],
+                       ['Pullups x5', 1.00, 1],
                        ['Cardio*', 8.2, 7],
-                       ['PT exercise', 1.8, 1]]
+                       ['PT exercise', 1.8, 1],
+                       ['Core', 1.2, 2]]
 
         # path = Path(__file__).parent / "jamesJan.csv"
         # with path.open() as f:
@@ -197,5 +198,5 @@ class WorkoutChart():
 
 
 if __name__ == "__main__":
-    c = WorkoutChart('March')
+    c = WorkoutChart('May')
     c.main()
