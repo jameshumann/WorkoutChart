@@ -13,8 +13,10 @@ Since each month is a different length, change the name of the month in the ```i
 
 Run the program. You will see a preview in TKinter. Close the preview. A PDF will automatically be saved in the same folder as the Python script. Open and print the PDF.
 ## Working Out
-Decide at the beginning of the month what counts for a box, and check off boxes as you go.
+Decide what counts for a box, and check off boxes as you go.
 
 I like to make 10 pushups a "chest" box, 15 mins of hiking or 0.25 mi jogging a "cardio" box, 30 crunches a "core" box, etc.
 
 As you check off boxes, the chart will show if you are ahead or behind your goal pace for the month. Try to complete all boxes by the end of the month!
+
+Keep the boxes consistent, and add more boxes over time to increase your workouts. You can do this by adjusting ```workoutList``` with a higher number of boxes or a shorter time period.
