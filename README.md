@@ -23,6 +23,6 @@ Keep the requirements for a box consistent, and add more boxes over time to incr
 
 ## Example
 Here is a generated PDF for November:
-![Example generated PDF.](images/november_PDF.pdf)
+![Example generated PDF.](images/november_PDF.png)
 Here is an (almost) complete printed chart from October.
 ![Example printed and used workout chart.](images/october_used.png)
