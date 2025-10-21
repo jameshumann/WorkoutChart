@@ -23,7 +23,7 @@ class WorkoutChart():
         self.labelWidth = 2.5 #width to right of margin and left of checkboxes for text labels
         self.noteHeight = 1
         self.interRowSpacing = 0.1 #vertical space between rows
-        self.rowHeight = 0.25
+        self.rowHeight = 0.20
         self.middleBuffer = 0.25 #space between top and bottom
         
         self.horizontalArea = self.pageWidth - self.leftMargin - self.rightMargin
@@ -36,7 +36,7 @@ class WorkoutChart():
         #print(self.panelBottomLeft)
 
         self.month = month
-        self.note = "*Cardio = 0.25 mi run, 30 min walk, 15 min hike, 1 Culver stairs, 2 Mar Vista stairs, 15 min bike   Core = 30 s prone plank, 15 s side plank, 10 bench situp, 30 crunch"
+        self.note = "*Cardio = 0.25 mi run, 30 min walk, 15 min hike, 15 min bike   Core = 30 s prone plank, 15 s side plank, 10 bench situp, 30 crunch   Chest = 10 pushups, 5x 20kg RL dumbell press"
 
     # def init(self):
     #     pass
@@ -60,13 +60,15 @@ class WorkoutChart():
         ax.axis('off')
         self.addLines(ax, self.month)
 
-        workoutList = [['Lunges x10 45kg', 1.9, 7],
-                       ['Squats X5 35kg', 2.25, 7],
-                       ['Pushups x10', 1.85, 1],
-                       ['Pullups x5', 1.00, 1],
-                       ['Cardio*', 8.2, 7],
-                       ['PT exercise', 1.8, 1],
-                       ['Core', 1.2, 2]]
+        workoutList = [['Lunges x5(RL) 45kg', 2.25, 7],
+                       ['Squats x5 45kg', 2.25, 7], #bumped up weight JUL 24
+                    #    ['Pushups x10', 1.85, 1],
+                       ['Shoulder x5(RL) 5kg(RL)', 3, 7],
+                       ['Chest', 1.85, 1],
+                       ['Curl x5(RL) 15kg(RL)', 1.00, 1],
+                       ['Cardio*', 9, 7],
+                       ['PT/back exercise', 1.8, 1],
+                       ['Core', 1.5*1.1, 2]]
 
         # path = Path(__file__).parent / "jamesJan.csv"
         # with path.open() as f:
@@ -198,5 +200,5 @@ class WorkoutChart():
 
 
 if __name__ == "__main__":
-    c = WorkoutChart('May')
+    c = WorkoutChart('November')
     c.main()

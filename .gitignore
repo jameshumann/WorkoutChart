@@ -3,3 +3,4 @@ vscws.code-workspace
 .vscode/.ropeproject
 *.code-workspace
 settings.json
+/venv
