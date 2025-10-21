@@ -1,8 +1,11 @@
-# Generate a printable monthly workout chart so you can check off boxes to mark your project.
+# Simple Python Workout Chart
+Generate a printable monthly workout chart so you can check off boxes to mark your progress.
 ## Use
 Right now, most of the usage involves making hard-coded changes. This will change in the future. This requires familiarity with Python.
 ### Add Goals
 The monthly goals are defined in the ```workoutList``` variable in the ```main``` function. This is a list of lists. Each inner list is a workout type and goal. An inner list is defined using 3 elements, in order: [Name, Boxes, Time Period (days)]. E.g., if you want to do pushups 10 times every 7 days, the list would be ```['Pushups', 10, 7]```. The Boxes/Time Period rate will be scaled to length of the entire month, so there would be 40 boxes in February in this example. These boxes represent whatever you want to be a unit of working out. 20 pushups could earn checking off one box.
+
+You can add a note with more information to the chart by changing ```self.note```.
 
 The chart can visually support up to 8 different workout types. Beyond this, you would have to start tinkering with other settings such as ```self.rowHeight``` to squeeze more in.
 ### Run
