@@ -24,5 +24,5 @@ Keep the requirements for a box consistent, and add more boxes over time to incr
 ## Example
 Here is a generated PDF for November:
 ![Example generated PDF.](images/november_PDF.png)
-Here is an (almost) complete printed chart from October.
+Here is an (almost) complete printed chart from October. I like to write down the date inside a box as I check it off, but a simple X will work just fine.
 ![Example printed and used workout chart.](images/october_used.png)
