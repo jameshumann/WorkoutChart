@@ -200,5 +200,5 @@ class WorkoutChart():
 
 
 if __name__ == "__main__":
-    c = WorkoutChart('November')
+    c = WorkoutChart('December')
     c.main()
