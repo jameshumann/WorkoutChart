@@ -18,27 +18,27 @@ class MyWidget(QtWidgets.QWidget):
         self.new_file_window:FileEditWidget = None
         # self.load_file_window:
 
-        self.hello = ["Hallo Welt", "Hei maailma", "Hola Mundo", "Привет мир"]
+        # self.hello = ["Hallo Welt", "Hei maailma", "Hola Mundo", "Привет мир"]
 
-        self.click_button = QtWidgets.QPushButton("Click me!")
+        # self.click_button = QtWidgets.QPushButton("Click me!")
         self.load_file_button = QtWidgets.QPushButton("Load File")
         self.create_new_file_button = QtWidgets.QPushButton("Create New File")
-        self.text = QtWidgets.QLabel("Hello World",
-                                     alignment=QtCore.Qt.AlignCenter)
+        # self.text = QtWidgets.QLabel("Hello World",
+                                    #  alignment=QtCore.Qt.AlignCenter)
 
         self.layout = QtWidgets.QVBoxLayout(self)
-        self.layout.addWidget(self.text)
-        self.layout.addWidget(self.click_button)
+        # self.layout.addWidget(self.text)
+        # self.layout.addWidget(self.click_button)
         self.layout.addWidget(self.load_file_button)
         self.layout.addWidget(self.create_new_file_button)
 
-        self.click_button.clicked.connect(self.magic)
+        # self.click_button.clicked.connect(self.magic)
         self.load_file_button.clicked.connect(self.pick_file_to_load)
         self.create_new_file_button.clicked.connect(self.create_new_file)
 
-    @QtCore.Slot()
-    def magic(self):
-        self.text.setText(random.choice(self.hello))
+    # @QtCore.Slot()
+    # def magic(self):
+        # self.text.setText(random.choice(self.hello))
 
     @QtCore.Slot()
     def create_new_file(self):
