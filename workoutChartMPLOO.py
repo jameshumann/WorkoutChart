@@ -299,6 +299,8 @@ class Ymlzer():
     def save_chart(info:ChartInfo, file_path:str):
         dic = asdict(info)
         # print(dic)
+        dic["month"] = dic["month"].value
+        # print(dic)
         # tex = yaml.safe_dump(dic)
         with open(file_path, "w") as f:
             yaml.safe_dump(dic, f, sort_keys=False, indent = 2)
