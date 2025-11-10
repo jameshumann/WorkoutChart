@@ -145,6 +145,38 @@ class WorkoutChart():
 
         plt.show()
 
+    def make_PDF(self, save_path:str, preview = False):
+        #print(self.daysInMonth("February (29)"))
+        fig = plt.figure(2)
+        fig.set_size_inches(11,8.5)
+        #fig.clf()
+        ax = fig.add_subplot(1,1,1)
+        #fig.subplots_adjust(left=0.1, right=.9, top=.9, bottom=0.1)
+        fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
+        ax.set_xlim([0,self.pageWidth])
+        ax.set_ylim([0,self.pageHeight])
+        #rectangle = plt.Rectangle((4,4), 2, 1, ec='black', fc='white')
+        #ax.add_patch(rectangle)
+        ax.patch.set_visible(False)
+        ax.axis('off')
+        self.addLines(ax, self.month)
+
+        y = 0
+        for wo in self.file_info.goal_list:
+                self.addRow(ax, self.panelBottomLeft[1] + y,
+                            self.file_info.month,
+                            wo.name, wo.boxes, wo.days)
+                y += self.rowHeight + self.interRowSpacing
+
+        self.addTitle(ax, self.month)
+        self.addNote(ax, self.note)
+
+        plt.margins(0,0)
+        plt.savefig(save_path)
+
+        if preview:
+            plt.show()
+
 
     def daysInMonth(self,mo):
         dict = {'January':31,'February (28)':28,'February (29)':29,'March':31,'April':30,'May':31,'June':30,'July':31,'August':31,'September':30,'October':31,'November':30,'December':31}

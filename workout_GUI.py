@@ -213,7 +213,7 @@ class FileEditWidget(QtWidgets.QWidget):
         path = os.getcwd() + "/" + base_directory
         # file_picker = QFileDialog(self)
         # file_picker.setDirectory(path)
-        file_path, _ = QFileDialog.getSaveFileName(
+        save_path, _ = QFileDialog.getSaveFileName(
             self,
             "Save a PDF",              # Dialog title
             path,                       # Default path
@@ -222,7 +222,8 @@ class FileEditWidget(QtWidgets.QWidget):
 
         info = self.entries_to_ChartInfo()
         chart = WorkoutChart(info = info, load_from_info=True)
-        chart.main()
+        # chart.main()
+        chart.make_PDF(save_path)
 
 
         # items = []
