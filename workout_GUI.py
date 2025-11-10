@@ -208,7 +208,7 @@ class FileEditWidget(QtWidgets.QWidget):
 
     @QtCore.Slot()
     def save_PDF(self):
-        base_directory="saved_configs"
+        base_directory="saved_charts"
         print("PDF saver clicked")
         path = os.getcwd() + "/" + base_directory
         # file_picker = QFileDialog(self)
