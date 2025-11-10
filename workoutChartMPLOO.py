@@ -169,7 +169,7 @@ class WorkoutChart():
                 y += self.rowHeight + self.interRowSpacing
 
         self.addTitle(ax, self.month)
-        self.addNote(ax, self.note)
+        self.addNote(ax, self.file_info.note)
 
         plt.margins(0,0)
         plt.savefig(save_path)

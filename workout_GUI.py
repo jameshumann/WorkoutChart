@@ -77,6 +77,7 @@ class FileEditWidget(QtWidgets.QWidget):
         self.setWindowTitle("Create or edit a workout plan.")
 
         self.expanding_space = QtWidgets.QVBoxLayout()
+        self.note_box = QtWidgets.QTextEdit()
         self.save_button = QtWidgets.QPushButton("💾 Save Workout")
         self.pdf_button = QtWidgets.QPushButton("📃 Make PDF")
         self.month_combo = QComboBox(placeholderText="Select Month")
@@ -114,6 +115,8 @@ class FileEditWidget(QtWidgets.QWidget):
         self.layout.addLayout(gdb, 0)
         self.layout.addLayout(self.expanding_space)
         self.layout.addWidget(self.new_goal_button)
+        self.layout.addWidget(QtWidgets.QLabel("Optional Note:"))
+        self.layout.addWidget(self.note_box)
         self.layout.addStretch(1)
         botom_button_layout = QtWidgets.QHBoxLayout()
         botom_button_layout.addWidget(self.save_button)
@@ -135,6 +138,7 @@ class FileEditWidget(QtWidgets.QWidget):
                 lll[0].setText(i.name)
                 lll[1].setText(str(i.boxes))
                 lll[2].setText(str(i.days))
+            self.note_box.setText(initial_chart.note)
 
     @QtCore.Slot()
     def add_new_row(self):
@@ -173,7 +177,7 @@ class FileEditWidget(QtWidgets.QWidget):
             # print(e[0].text(), float(e[1].text()), float(e[2].text()))
         info = ChartInfo(goal_list = items,
                          month     = MonthName[self.month_combo.currentText()],
-                         note      = "")
+                         note      = self.note_box.toPlainText())
         return info
 
     @QtCore.Slot()
@@ -191,12 +195,13 @@ class FileEditWidget(QtWidgets.QWidget):
         )
 
         items = []
-        for e in self.entry_list:
-            items.append( WorkoutItem(e[0].text(), float(e[1].text()), float(e[2].text())) )
-            # print(e[0].text(), float(e[1].text()), float(e[2].text()))
-        to_save = ChartInfo(goal_list = items,
-                            month     = self.month_combo.currentText(),
-                            note      = "")
+        to_save = self.entries_to_ChartInfo()
+        # for e in self.entry_list:
+        #     items.append( WorkoutItem(e[0].text(), float(e[1].text()), float(e[2].text())) )
+        #     # print(e[0].text(), float(e[1].text()), float(e[2].text()))
+        # to_save = ChartInfo(goal_list = items,
+        #                     month     = self.month_combo.currentText(),
+        #                     note      = "")
         print(to_save)
 
         ym = Ymlzer()
