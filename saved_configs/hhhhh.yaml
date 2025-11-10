@@ -1,0 +1,12 @@
+goal_list:
+- name: tred
+  boxes: 7.0
+  days: 5.0
+- name: edfgh
+  boxes: 6.0
+  days: 8.0
+- name: ghgf
+  boxes: 7.0
+  days: 88.0
+month: ''
+note: ''

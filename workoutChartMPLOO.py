@@ -1,17 +1,20 @@
 from graphics import *
+from DataClasses import MonthName, WorkoutItem, ChartInfo
 import math
 import matplotlib.pyplot as plt
 import numpy as np
+from dataclasses import asdict, dataclass
 from textwrap import fill
 import json
 import csv
+import yaml
 from pathlib import Path
 
 
 
 class WorkoutChart():
 
-    def __init__(self, month, file_name = "jamesJan.csv"):
+    def __init__(self, month = "January", file_folder = "saved_configs", file_name = "demo.yaml", absolute_file_path = "err", load_from_file = True, info:ChartInfo = None, load_from_info = True):
         self.pageWidth = 11 #inches
         self.pageHeight = 8.5
 
@@ -38,8 +41,39 @@ class WorkoutChart():
         self.month = month
         self.note = "*Cardio = 0.25 mi run, 30 min walk, 15 min hike, 15 min bike   Core = 30 s prone plank, 15 s side plank, 10 bench situp, 30 crunch   Chest = 10 pushups, 5x 20kg RL dumbell press"
 
+        self.file_info:ChartInfo = None
+        self.loaded_workout_list: list[WorkoutItem]
+        self.month_name: MonthName
+        self.using_file = load_from_file
+        self.file_info:ChartInfo
+        # if self.using_file:
+        #     # self.file_info
+        #     # self.file_info = self.load_file(file_folder + "/" + file_name)
+        #     self.file_info = self.load_file(absolute_file_path)
+        #     print(self.file_info)
+        if load_from_info:
+            self.file_info = info
+            self.using_file = True
+            
     # def init(self):
     #     pass
+
+    # def load_file(self, file_path):
+    #     ans:ChartInfo
+    #     with open(file_path, "r") as file:
+    #         loaded_dict = yaml.safe_load(file)
+    #         gl = []
+    #         for a in loaded_dict["workout_items"]:
+    #             n = WorkoutItem(name  = a["name"],
+    #                             boxes = a["boxes"],
+    #                             days  = a["days"])
+    #             gl.append(n)
+
+    #         ans = ChartInfo(goal_list = gl,
+    #                         month     = MonthName(loaded_dict["month"]),
+    #                         note      = loaded_dict["note"])
+    #     # print(loaded_dict)
+    #     return ans
 
     def info(self):
         print("stuff")
@@ -69,6 +103,8 @@ class WorkoutChart():
                        ['Cardio*', 9, 7],
                        ['PT/back exercise', 1.8, 1],
                        ['Core', 1.5*1.1, 2]]
+        
+
 
         # path = Path(__file__).parent / "jamesJan.csv"
         # with path.open() as f:
@@ -90,9 +126,16 @@ class WorkoutChart():
 
 
         y = 0
-        for wo in workoutList:
-            self.addRow(ax, self.panelBottomLeft[1] + y, self.month, wo[0], wo[1], wo[2])
-            y += self.rowHeight + self.interRowSpacing
+        if self.using_file:
+            for wo in self.file_info.goal_list:
+                self.addRow(ax, self.panelBottomLeft[1] + y,
+                            self.file_info.month,
+                            wo.name, wo.boxes, wo.days)
+                y += self.rowHeight + self.interRowSpacing
+        else:
+            for wo in workoutList:
+                self.addRow(ax, self.panelBottomLeft[1] + y, self.month, wo[0], wo[1], wo[2])
+                y += self.rowHeight + self.interRowSpacing
 
         self.addTitle(ax, self.month)
         self.addNote(ax, self.note)
@@ -106,10 +149,30 @@ class WorkoutChart():
     def daysInMonth(self,mo):
         dict = {'January':31,'February (28)':28,'February (29)':29,'March':31,'April':30,'May':31,'June':30,'July':31,'August':31,'September':30,'October':31,'November':30,'December':31}
         return dict.get(mo)
+    
+    def daysInEnumMonth(self,mo:MonthName):
+        dict = {MonthName.JANUARY:31,
+                MonthName.FEBRUARY:28,
+                MonthName.FEBRUARY28:28,
+                MonthName.FEBRUARY29:29,
+                MonthName.MARCH:31,
+                MonthName.APRIL:30,
+                MonthName.MAY:31,
+                MonthName.JUNE:30,
+                MonthName.JULY:31,
+                MonthName.AUGUST:31,
+                MonthName.SEPTEMBER:30,
+                MonthName.OCTOBER:31,
+                MonthName.NOVEMBER:30,
+                MonthName.DECEMBER:31}
+        return dict.get(mo)
 
     def addLines(self, axes, month):
         
-        totalDays = self.daysInMonth(month)
+        if self.using_file:
+            totalDays = self.daysInEnumMonth(self.file_info.month)
+        else:
+            totalDays = self.daysInMonth(month)
         daysInTopRow = 14
         daysInBottomRow = totalDays - daysInTopRow
 
@@ -153,8 +216,11 @@ class WorkoutChart():
 
     def addRow(self, axes, vertDistance, month, name, howMany, every):
         pd = howMany/every # boxes per day
-        totalDays = self.daysInMonth(month)
-        pm = pd*self.daysInMonth(month) # boxes per month
+        if self.using_file:
+            totalDays = self.daysInEnumMonth(self.file_info.month)
+        else:
+            totalDays = self.daysInMonth(month)
+        pm = pd*totalDays # boxes per month
         print(pm)
         pm = np.round(pm)
         print(pm)
@@ -195,6 +261,46 @@ class WorkoutChart():
         x = self.leftMargin
         y = self.panelBottomLeft[1] - 2*self.rowHeight
         axes.text(x, y, fill(note, width = round(self.horizontalArea*13.5)), ha='left', va='top') # ~11 characters per inch
+
+class Ymlzer():
+    @staticmethod
+    def save_chart(info:ChartInfo, file_path:str):
+        dic = asdict(info)
+        # print(dic)
+        # tex = yaml.safe_dump(dic)
+        with open(file_path, "w") as f:
+            yaml.safe_dump(dic, f, sort_keys=False, indent = 2)
+    
+    # def text_to_info(self, yaml_formatted_text:str):
+    #     items = []
+    #     dic = yaml.safe_load(yaml_formatted_text)
+    #     for i in dic["goal_list"]:
+    #         items.append(WorkoutItem(name  = i["name"],
+    #                                  boxes = i["boxes"],
+    #                                  days  = i["days"]))
+    #     info = ChartInfo(goal_list = items, 
+    #                      month     = MonthName[dic["month"]],
+    #                      note      = dic["note"])
+    #     return info
+    @staticmethod
+    def load_file(file_path):
+        ans:ChartInfo
+        with open(file_path, "r") as file:
+            loaded_dict = yaml.safe_load(file)
+            print(file)
+            print(loaded_dict)
+            gl = []
+            for a in loaded_dict["goal_list"]:
+                n = WorkoutItem(name  = a["name"],
+                                boxes = a["boxes"],
+                                days  = a["days"])
+                gl.append(n)
+
+            ans = ChartInfo(goal_list = gl,
+                            month     = MonthName(loaded_dict["month"]),
+                            note      = loaded_dict["note"])
+        # print(loaded_dict)
+        return ans
 
 
 

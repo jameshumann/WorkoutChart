@@ -1,0 +1,14 @@
+workout_items:
+  - name: "Situps"
+    boxes: 5
+    days: 7
+  - name: "Pushups"
+    boxes: 2.5
+    days: 1
+  - name: "Curls"
+    boxes: 15.27
+    days: 29.8
+month: NOVEMBER
+note: "This is the note from the demo. It can be whatever you want. Demo file created November 2025"
+# file_name: "demo"
+# user: "James"
