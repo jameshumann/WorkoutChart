@@ -361,35 +361,66 @@ class Ymlzer():
         return ans
 
 
+def run_hardcoded():
+    ## Inputs ##
+    month = MonthName.JANUARY # Use Enum
+    workoutList = [['Lunges x5(RL) 45kg', 2.25, 7],
+                    ['Squats x5 45kg', 2.25, 7],
+                    ['Shoulder x5(RL) 5kg(RL)', 3, 7],
+                    ['Chest', 1.85, 1],
+                    ['Curl x5(RL) 15kg(RL)', 1.00, 1],
+                    ['Cardio*', 9, 7],
+                    ['PT/back exercise', 1.8, 1],
+                    ['Core', 1.5*1.1, 2]]
+    note = "*Cardio = 0.25 mi run, 30 min walk, 15 min hike, 15 min bike   Core = 30 s prone plank, 15 s side plank, 10 bench situp, 30 crunch   Chest = 10 pushups, 5x 20kg RL dumbell press"
+    output_name = "HC_chart.pdf" # Include .pdf extension
+    #############
 
+    items = []
+    for e in workoutList:
+        items.append( WorkoutItem(e[0], e[1], e[2]) )
+    info = ChartInfo(goal_list = items,
+                     month     = month,
+                     note      = note)
+    chart = WorkoutChart(info=info, load_from_info=True)
+    chart.make_graphics(preview = True)
+    chart.make_PDF("saved_charts/" + output_name)
 
 if __name__ == "__main__":
+    ## Can be by hardcoding parameters in run_hardcoded function ##
+    RUN_HARDCODED = True
+    if RUN_HARDCODED:
+        print("Running hardcoded...")
+        run_hardcoded()
+        sys.exit(0)
+
+    ## Typical (better) way to run using YAML files, GUI, and/or CLI ##
     parser = argparse.ArgumentParser(description="Start up the workout chart editor, or run fully from CLI.")
     # , help="Run without any arguments to generate demo file."
     parser.add_argument("--input_file", type=Path, help="Input YAML file, including .yaml extension, from default folder")
     parser.add_argument("--output_file", type=Path, help="Output PDF file, including .pdf extension, saved in default folder")
     parser.add_argument("--demo", action="store_true", help="Run demo and save to default output folder.")
-    
     args = parser.parse_args()
 
     if (args.input_file == None) ^ (args.output_file == None):
         print("Invalid, must have input and output, or neither.")
         sys.exit(0)
     elif (args.input_file != None) and (args.output_file != None):
+        print("Running headless with user-specified YAML file...")
         # path_to_input = Path("saved_configs/")
         a = Ymlzer.load_file(args.input_file)
         b = WorkoutChart(info=a, load_from_info=True)
         b.make_PDF(args.output_file)
         sys.exit(0)
     elif args.demo:
+        print("Running demo, using demo.yaml...")
         a = Ymlzer.load_file("saved_configs/demo.yaml")
         c = WorkoutChart(info=a, load_from_info=True)
         c.make_PDF("saved_charts/demo_output.pdf", preview=True)
         sys.exit(0)
     else:
         import workout_GUI
+        print("Running GUI...")
         app, widget = workout_GUI.get_main_window()
         app.exec()
         sys.exit(0)
-
-    # c.main()
