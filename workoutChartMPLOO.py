@@ -388,7 +388,7 @@ def run_hardcoded():
 
 if __name__ == "__main__":
     ## Can be by hardcoding parameters in run_hardcoded function ##
-    RUN_HARDCODED = True
+    RUN_HARDCODED = False
     if RUN_HARDCODED:
         print("Running hardcoded...")
         run_hardcoded()
