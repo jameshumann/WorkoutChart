@@ -244,6 +244,12 @@ class FileEditWidget(QtWidgets.QWidget):
         # ym.save_chart(to_save, file_path)
             # print()
 
+def get_main_window():
+    app = QtWidgets.QApplication([])
+    widget = MyWidget()
+    widget.resize(*DEFAULT_SIZE)
+    widget.show()
+    return app, widget
 
 
 

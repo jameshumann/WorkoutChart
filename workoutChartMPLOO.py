@@ -9,6 +9,8 @@ import json
 import csv
 import yaml
 from pathlib import Path
+import argparse
+# from workout_GUI import MyWidget
 
 
 
@@ -168,7 +170,7 @@ class WorkoutChart():
                             wo.name, wo.boxes, wo.days)
                 y += self.rowHeight + self.interRowSpacing
 
-        self.addTitle(ax, self.month)
+        self.addTitle(ax, self.file_info.month.value)
         self.addNote(ax, self.file_info.note)
 
         plt.margins(0,0)
@@ -305,17 +307,6 @@ class Ymlzer():
         with open(file_path, "w") as f:
             yaml.safe_dump(dic, f, sort_keys=False, indent = 2)
     
-    # def text_to_info(self, yaml_formatted_text:str):
-    #     items = []
-    #     dic = yaml.safe_load(yaml_formatted_text)
-    #     for i in dic["goal_list"]:
-    #         items.append(WorkoutItem(name  = i["name"],
-    #                                  boxes = i["boxes"],
-    #                                  days  = i["days"]))
-    #     info = ChartInfo(goal_list = items, 
-    #                      month     = MonthName[dic["month"]],
-    #                      note      = dic["note"])
-    #     return info
     @staticmethod
     def load_file(file_path):
         ans:ChartInfo
@@ -340,5 +331,31 @@ class Ymlzer():
 
 
 if __name__ == "__main__":
-    c = WorkoutChart('December')
-    c.main()
+    parser = argparse.ArgumentParser(description="Start up the workout chart editor, or run fully from CLI.")
+    # , help="Run without any arguments to generate demo file."
+    parser.add_argument("--input_file_name", type=Path, help="Input YAML file, including .yaml extension, from default folder")
+    parser.add_argument("--output_file_name", type=Path, help="Output PDF file, including .pdf extension, saved in default folder")
+    parser.add_argument("--demo", action="store_true", help="Run demo and save to default output folder.")
+    
+    args = parser.parse_args()
+
+    if (args.input_file_name == None) ^ (args.output_file_name == None):
+        print("Invalid, must have input and output, or neither.")
+        sys.exit(0)
+    elif (args.input_file_name != None) and (args.output_file_name != None):
+        a = Ymlzer.load_file(args.input_file_name)
+        b = WorkoutChart(info=a, load_from_info=True)
+        b.make_PDF(args.output_file_name)
+        sys.exit(0)
+    elif args.demo:
+        a = Ymlzer.load_file("saved_configs/demo.yaml")
+        c = WorkoutChart(info=a, load_from_info=True)
+        c.make_PDF("saved_charts/demo_output.pdf", preview=True)
+        sys.exit(0)
+    else:
+        import workout_GUI
+        app, widget = workout_GUI.get_main_window()
+        app.exec()
+        sys.exit(0)
+
+    # c.main()
