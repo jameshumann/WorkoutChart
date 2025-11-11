@@ -79,6 +79,7 @@ class FileEditWidget(QtWidgets.QWidget):
         self.expanding_space = QtWidgets.QVBoxLayout()
         self.note_box = QtWidgets.QTextEdit()
         self.save_button = QtWidgets.QPushButton("💾 Save Workout")
+        self.preview_button = QtWidgets.QPushButton("🧐 Preview")
         self.pdf_button = QtWidgets.QPushButton("📃 Make PDF")
         self.month_combo = QComboBox(placeholderText="Select Month")
 
@@ -119,13 +120,14 @@ class FileEditWidget(QtWidgets.QWidget):
         self.layout.addWidget(self.note_box)
         self.layout.addStretch(1)
         botom_button_layout = QtWidgets.QHBoxLayout()
+        botom_button_layout.addWidget(self.preview_button)
         botom_button_layout.addWidget(self.save_button)
         botom_button_layout.addWidget(self.pdf_button)
         # self.layout.addWidget(self.save_button)
         self.layout.addLayout(botom_button_layout)
         
-
         self.new_goal_button.clicked.connect(self.add_new_row)
+        self.preview_button.clicked.connect(self.show_preview)
         self.save_button.clicked.connect(self.save_file)
         self.pdf_button.clicked.connect(self.save_PDF)
 
@@ -210,6 +212,25 @@ class FileEditWidget(QtWidgets.QWidget):
 
     def create_new_blank_entry(self):
         nl = QLineEdit(self)
+
+    @QtCore.Slot()
+    def show_preview(self):
+        # base_directory="saved_charts"
+        # print("PDF saver clicked")
+        print("Preview clicked")
+        info = self.entries_to_ChartInfo()
+        chart = WorkoutChart(info = info, load_from_info=True)
+        # chart.main()
+        chart.make_graphics()
+        # path = os.getcwd() + "/" + base_directory
+        # file_picker = QFileDialog(self)
+        # file_picker.setDirectory(path)
+        # save_path, _ = QFileDialog.getSaveFileName(
+        #     self,
+        #     "Save a PDF",              # Dialog title
+        #     path,                       # Default path
+        #     "PDF Files (*.pdf)"  # File filters
+        # )
 
     @QtCore.Slot()
     def save_PDF(self):

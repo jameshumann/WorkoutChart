@@ -147,6 +147,39 @@ class WorkoutChart():
 
         plt.show()
 
+    def make_graphics(self, preview = True) -> plt.Figure:
+        #print(self.daysInMonth("February (29)"))
+        fig = plt.figure(2)
+        fig.set_size_inches(11,8.5)
+        #fig.clf()
+        ax = fig.add_subplot(1,1,1)
+        #fig.subplots_adjust(left=0.1, right=.9, top=.9, bottom=0.1)
+        fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
+        ax.set_xlim([0,self.pageWidth])
+        ax.set_ylim([0,self.pageHeight])
+        #rectangle = plt.Rectangle((4,4), 2, 1, ec='black', fc='white')
+        #ax.add_patch(rectangle)
+        ax.patch.set_visible(False)
+        ax.axis('off')
+        self.addLines(ax, self.month)
+
+        y = 0
+        for wo in self.file_info.goal_list:
+            self.addRow(ax, self.panelBottomLeft[1] + y,
+                        self.file_info.month,
+                        wo.name, wo.boxes, wo.days)
+            y += self.rowHeight + self.interRowSpacing
+
+        self.addTitle(ax, self.file_info.month.value)
+        self.addNote(ax, self.file_info.note)
+
+        plt.margins(0,0)
+        # plt.savefig(save_path)
+        if preview:
+            plt.show()
+
+        return fig
+
     def make_PDF(self, save_path:str, preview = False):
         #print(self.daysInMonth("February (29)"))
         fig = plt.figure(2)
@@ -165,10 +198,10 @@ class WorkoutChart():
 
         y = 0
         for wo in self.file_info.goal_list:
-                self.addRow(ax, self.panelBottomLeft[1] + y,
-                            self.file_info.month,
-                            wo.name, wo.boxes, wo.days)
-                y += self.rowHeight + self.interRowSpacing
+            self.addRow(ax, self.panelBottomLeft[1] + y,
+                        self.file_info.month,
+                        wo.name, wo.boxes, wo.days)
+            y += self.rowHeight + self.interRowSpacing
 
         self.addTitle(ax, self.file_info.month.value)
         self.addNote(ax, self.file_info.note)
