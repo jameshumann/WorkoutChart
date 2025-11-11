@@ -43,7 +43,7 @@ class MyWidget(QtWidgets.QWidget):
     @QtCore.Slot()
     def create_new_file(self):
         # self.text.setText(random.choice(self.hello))
-        print("File editor clicked")
+        # print("File editor clicked")
         few = FileEditWidget()
         self.new_file_window = few
         self.new_file_window.resize(*DEFAULT_SIZE)
@@ -53,7 +53,7 @@ class MyWidget(QtWidgets.QWidget):
     @QtCore.Slot()
     def pick_file_to_load(self):
         base_directory="saved_configs"
-        print("File button clicked")
+        # print("File button clicked")
         path = os.getcwd() + "/" + base_directory
         file_picker = QFileDialog(self)
         file_picker.setDirectory(path)
@@ -63,7 +63,7 @@ class MyWidget(QtWidgets.QWidget):
         # file_picker.exec()
         file_to_load = file_picker.getOpenFileName()[0]
         # print (file_picker.getOpenFileName())
-        print(file_to_load)
+        # print(file_to_load)
         # woc = WorkoutChart(absolute_file_path=file_to_load)
         # woc.main()
         initial_chart = Ymlzer.load_file(file_to_load)
@@ -185,7 +185,7 @@ class FileEditWidget(QtWidgets.QWidget):
     @QtCore.Slot()
     def save_file(self):
         base_directory="saved_configs"
-        print("File saver clicked")
+        # print("File saver clicked")
         path = os.getcwd() + "/" + base_directory
         # file_picker = QFileDialog(self)
         # file_picker.setDirectory(path)
@@ -196,7 +196,7 @@ class FileEditWidget(QtWidgets.QWidget):
             "YAML Files (*.yaml)"  # File filters
         )
 
-        items = []
+        # items = []
         to_save = self.entries_to_ChartInfo()
         # for e in self.entry_list:
         #     items.append( WorkoutItem(e[0].text(), float(e[1].text()), float(e[2].text())) )
@@ -204,8 +204,8 @@ class FileEditWidget(QtWidgets.QWidget):
         # to_save = ChartInfo(goal_list = items,
         #                     month     = self.month_combo.currentText(),
         #                     note      = "")
-        print(to_save)
-
+        # print(to_save)
+        
         ym = Ymlzer()
         ym.save_chart(to_save, file_path)
             # print()
@@ -217,7 +217,7 @@ class FileEditWidget(QtWidgets.QWidget):
     def show_preview(self):
         # base_directory="saved_charts"
         # print("PDF saver clicked")
-        print("Preview clicked")
+        # print("Preview clicked")
         info = self.entries_to_ChartInfo()
         chart = WorkoutChart(info = info, load_from_info=True)
         # chart.main()
@@ -235,7 +235,7 @@ class FileEditWidget(QtWidgets.QWidget):
     @QtCore.Slot()
     def save_PDF(self):
         base_directory="saved_charts"
-        print("PDF saver clicked")
+        # print("PDF saver clicked")
         path = os.getcwd() + "/" + base_directory
         # file_picker = QFileDialog(self)
         # file_picker.setDirectory(path)

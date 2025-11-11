@@ -12,10 +12,7 @@ from pathlib import Path
 import argparse
 # from workout_GUI import MyWidget
 
-
-
 class WorkoutChart():
-
     def __init__(self, month = "January", file_folder = "saved_configs", file_name = "demo.yaml", absolute_file_path = "err", load_from_file = True, info:ChartInfo = None, load_from_info = True):
         self.pageWidth = 11 #inches
         self.pageHeight = 8.5
@@ -77,8 +74,8 @@ class WorkoutChart():
     #     # print(loaded_dict)
     #     return ans
 
-    def info(self):
-        print("stuff")
+    # def info(self):
+    #     print("stuff")
 
     def main(self):
         #print(self.daysInMonth("February (29)"))
@@ -288,11 +285,11 @@ class WorkoutChart():
         else:
             totalDays = self.daysInMonth(month)
         pm = pd*totalDays # boxes per month
-        print(pm)
+        # print(pm)
         pm = np.round(pm)
-        print(pm)
+        # print(pm)
         pm = int(pm)
-        print(pm)
+        # print(pm)
 
         daysInTopRow = 14
         daysInBottomRow = totalDays - daysInTopRow
@@ -337,6 +334,8 @@ class Ymlzer():
         dic["month"] = dic["month"].value
         # print(dic)
         # tex = yaml.safe_dump(dic)
+        print("Saving to:")
+        print(file_path)
         with open(file_path, "w") as f:
             yaml.safe_dump(dic, f, sort_keys=False, indent = 2)
     
@@ -345,8 +344,11 @@ class Ymlzer():
         ans:ChartInfo
         with open(file_path, "r") as file:
             loaded_dict = yaml.safe_load(file)
-            print(file)
-            print(loaded_dict)
+            # print(file)
+            print("Loading from file:")
+            print(file_path)
+            print(loaded_dict) 
+            # print(loaded_dict)
             gl = []
             for a in loaded_dict["goal_list"]:
                 n = WorkoutItem(name  = a["name"],
