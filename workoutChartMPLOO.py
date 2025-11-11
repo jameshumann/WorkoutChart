@@ -366,19 +366,20 @@ class Ymlzer():
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Start up the workout chart editor, or run fully from CLI.")
     # , help="Run without any arguments to generate demo file."
-    parser.add_argument("--input_file_name", type=Path, help="Input YAML file, including .yaml extension, from default folder")
-    parser.add_argument("--output_file_name", type=Path, help="Output PDF file, including .pdf extension, saved in default folder")
+    parser.add_argument("--input_file", type=Path, help="Input YAML file, including .yaml extension, from default folder")
+    parser.add_argument("--output_file", type=Path, help="Output PDF file, including .pdf extension, saved in default folder")
     parser.add_argument("--demo", action="store_true", help="Run demo and save to default output folder.")
     
     args = parser.parse_args()
 
-    if (args.input_file_name == None) ^ (args.output_file_name == None):
+    if (args.input_file == None) ^ (args.output_file == None):
         print("Invalid, must have input and output, or neither.")
         sys.exit(0)
-    elif (args.input_file_name != None) and (args.output_file_name != None):
-        a = Ymlzer.load_file(args.input_file_name)
+    elif (args.input_file != None) and (args.output_file != None):
+        # path_to_input = Path("saved_configs/")
+        a = Ymlzer.load_file(args.input_file)
         b = WorkoutChart(info=a, load_from_info=True)
-        b.make_PDF(args.output_file_name)
+        b.make_PDF(args.output_file)
         sys.exit(0)
     elif args.demo:
         a = Ymlzer.load_file("saved_configs/demo.yaml")
