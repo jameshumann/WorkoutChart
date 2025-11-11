@@ -204,6 +204,8 @@ class WorkoutChart():
         self.addNote(ax, self.file_info.note)
 
         plt.margins(0,0)
+        print("Saving PDF to:")
+        print(save_path)
         plt.savefig(save_path)
 
         if preview:
@@ -334,7 +336,7 @@ class Ymlzer():
         dic["month"] = dic["month"].value
         # print(dic)
         # tex = yaml.safe_dump(dic)
-        print("Saving to:")
+        print("Saving chart to:")
         print(file_path)
         with open(file_path, "w") as f:
             yaml.safe_dump(dic, f, sort_keys=False, indent = 2)
