@@ -1,19 +1,47 @@
 # Simple Python Workout Chart
 Generate a printable monthly workout chart so you can check off boxes to mark your progress.
+
+## Concept
+This program creates PDFs of your workout chart. The information to build a workout chart is stored in .yaml files.
+
+Each workout goal has 3 elements: name, boxes, and days. The boxes represent whatever you want to be a unit of working out. 20 pushups could earn checking off one box. The days sets the rate of # of boxes / # of days. The Boxes/Days rate will be scaled to the length of the entire month. E.g., if you want to do pushups 10 times every 7 days, there would be 40 boxes in February.
+
 ## Use
 The main Python script is ```workoutChartMPLOO.py```
+Install all of the dependencies (ideally in a virtual environment) and run this script.
+The command ```python workoutChartMPLOO.py --demo``` will run a quick demo to test that the software is working.
 
-Right now, most of the usage involves making hard-coded changes. This will change in the future. This requires familiarity with Python.
-### Add Goals
-The monthly goals are defined in the ```workoutList``` variable in the ```main``` function. This is a list of lists. Each inner list is a workout type and goal. An inner list is defined using 3 elements, in order: [Name, Boxes, Time Period (days)]. E.g., if you want to do pushups 10 times every 7 days, the list would be ```['Pushups', 10, 7]```. The Boxes/Time Period rate will be scaled to the length of the entire month, so there would be 40 boxes in February in this example. These boxes represent whatever you want to be a unit of working out. 20 pushups could earn checking off one box.
+The default folders are ```saved_charts``` saved PDF charts, and ```saved_configs``` for YAML chart information files. Use these folders for the most consistent results.
 
-You can add a note with more information to the chart by changing ```self.note```.
+The chart can visually support up to 8 different workout types. Beyond this, you would have to start tinkering with other settings such shrinking ```self.rowHeight``` to squeeze more in. (next TODO is to make this more automatic)
 
-The chart can visually support up to 8 different workout types. Beyond this, you would have to start tinkering with other settings such as ```self.rowHeight``` to squeeze more in.
-### Run
-Since each month is a different length, change the name of the month in the ```if __name__ == "__main__":``` code block to the current month. Use "February (28)" or "February (29)" to specify the length of February.
+You can make your chart one of 3 ways:
+* GUI (recommended)
+* Direct YAML editing and CLI
+* Hardcoding
 
-Run the program. You will see a preview in TKinter. Close the preview. A PDF will automatically be saved in the same folder as the Python script. Open and print the PDF.
+
+### GUI mode
+Simply run ```python workoutChartMPLOO.py``` with no arguments. The GUI will allow you to create new files and load, edit, preview, and save charts.
+
+### Hardcoding
+The monthly goals are defined in the ```workoutList``` variable in the ```run_hardcoded()``` function. This is a list of lists. Each inner list is a workout type and goal. An inner list is defined using 3 elements, in order: [Name, Boxes, Time Period (days)]. 
+
+You can add a note with more information to the chart by changing ```note```.
+
+Set the month in ```month```, making sure to use the MonthName Enum, e.g. ```MonthName.FEBRUARY29```, or ```MonthName.AUGUST```
+
+Set the save file name in ```output_name```.
+
+Run the script in your IDE or from the command line.
+
+### CLI
+Using the command line interface, you specify the input (YAML) and output (PDF) files, relative to the base directory. E.g. ```python workoutChartMPLOO.py --input_file saved_configs/demo.yaml --output_file saved_charts/CLIdemo.pdf```. You can access this information with ```python workoutChartMPLOO.py --help```.
+
+Using the ```--demo``` argument will run a demo mode and ignore all other arguments.
+
+Running with no arguments will open the GUI mode.
+
 ## Working Out
 Decide what counts for a box, and check off boxes as you go.
 
