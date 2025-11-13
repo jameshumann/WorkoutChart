@@ -49,7 +49,7 @@ I like to make 10 pushups a "chest" box, 15 mins of hiking or 0.25 mi jogging a 
 
 As you check off boxes, the chart will show if you are ahead or behind your goal pace for the month. Try to complete all boxes by the end of the month!
 
-Keep the requirements for a box consistent, and add more boxes over time to increase your workouts. You can do this by adjusting ```workoutList``` with a higher number of boxes or a shorter time period.
+Keep the requirements for a box consistent, and add more boxes over time to increase your workouts. You can do this by raising the number of boxes or lowering the number of days.
 
 ## Example
 Here is a generated PDF for November:
