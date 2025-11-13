@@ -406,7 +406,13 @@ if __name__ == "__main__":
     parser.add_argument("--demo", action="store_true", help="Run demo and save to default output folder.")
     args = parser.parse_args()
 
-    if (args.input_file == None) ^ (args.output_file == None):
+    if args.demo:
+        print("Running demo, using demo.yaml...")
+        a = Ymlzer.load_file("saved_configs/demo.yaml")
+        c = WorkoutChart(info=a, load_from_info=True)
+        c.make_PDF("saved_charts/demo_output.pdf", preview=True)
+        sys.exit(0)
+    elif (args.input_file == None) ^ (args.output_file == None):
         print("Invalid, must have input and output, or neither.")
         sys.exit(0)
     elif (args.input_file != None) and (args.output_file != None):
@@ -415,12 +421,6 @@ if __name__ == "__main__":
         a = Ymlzer.load_file(args.input_file)
         b = WorkoutChart(info=a, load_from_info=True)
         b.make_PDF(args.output_file)
-        sys.exit(0)
-    elif args.demo:
-        print("Running demo, using demo.yaml...")
-        a = Ymlzer.load_file("saved_configs/demo.yaml")
-        c = WorkoutChart(info=a, load_from_info=True)
-        c.make_PDF("saved_charts/demo_output.pdf", preview=True)
         sys.exit(0)
     else:
         import workout_GUI
