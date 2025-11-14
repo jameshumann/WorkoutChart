@@ -25,6 +25,8 @@ You can make your chart one of 3 ways:
 Simply run ```python workoutChartMPLOO.py``` with no arguments. The GUI will allow you to create new files and load, edit, preview, and save charts.
 
 ### Hardcoding
+In the ```if __name__ == "__main__":``` code block, set ```RUN_HARDCODED``` to true. Everything else is done in the ```run_hardcoded()``` function.
+
 The monthly goals are defined in the ```workoutList``` variable in the ```run_hardcoded()``` function. This is a list of lists. Each inner list is a workout type and goal. An inner list is defined using 3 elements, in order: [Name, Boxes, Time Period (days)]. 
 
 You can add a note with more information to the chart by changing ```note```.

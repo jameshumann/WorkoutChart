@@ -16,11 +16,6 @@ class MyWidget(QtWidgets.QWidget):
         super().__init__()
 
         self.new_file_window:FileEditWidget = None
-        # self.load_file_window:
-
-        # self.hello = ["Hallo Welt", "Hei maailma", "Hola Mundo", "Привет мир"]
-
-        # self.click_button = QtWidgets.QPushButton("Click me!")
         self.load_file_button = QtWidgets.QPushButton("Load File")
         self.create_new_file_button = QtWidgets.QPushButton("Create New File")
         # self.text = QtWidgets.QLabel("Hello World",
@@ -36,14 +31,8 @@ class MyWidget(QtWidgets.QWidget):
         self.load_file_button.clicked.connect(self.pick_file_to_load)
         self.create_new_file_button.clicked.connect(self.create_new_file)
 
-    # @QtCore.Slot()
-    # def magic(self):
-        # self.text.setText(random.choice(self.hello))
-
     @QtCore.Slot()
     def create_new_file(self):
-        # self.text.setText(random.choice(self.hello))
-        # print("File editor clicked")
         few = FileEditWidget()
         self.new_file_window = few
         self.new_file_window.resize(*DEFAULT_SIZE)
@@ -62,10 +51,7 @@ class MyWidget(QtWidgets.QWidget):
         file_picker.setViewMode(QFileDialog.List)
         # file_picker.exec()
         file_to_load = file_picker.getOpenFileName()[0]
-        # print (file_picker.getOpenFileName())
-        # print(file_to_load)
-        # woc = WorkoutChart(absolute_file_path=file_to_load)
-        # woc.main()
+   
         initial_chart = Ymlzer.load_file(file_to_load)
         self.new_file_window = FileEditWidget(initial_chart)
         self.new_file_window.resize(*DEFAULT_SIZE)
@@ -85,11 +71,6 @@ class FileEditWidget(QtWidgets.QWidget):
 
         self.month_combo.addItems([m.value for m in MonthName])
 
-        # for m in MonthName:
-        #     print(m)
-        #     self.month_combo.addItem(m)
-
-        # self.hello = ["Hallo Welt", "Hei maailma", "Hola Mundo", "Привет мир"]
         self.entry_list = []
         self.new_goal_button = QtWidgets.QPushButton("➕ Add New Goal")
         lbg = QtWidgets.QLabel("Workout Name", alignment=QtCore.Qt.AlignCenter)
@@ -102,17 +83,9 @@ class FileEditWidget(QtWidgets.QWidget):
         gdb.addWidget(lbg, 0)
         gdb.addWidget(lbb, 0)
         gdb.addWidget(lbd, 0)
-        # self.load_file_button = QtWidgets.QPushButton("Load File")
-        # self.text = QtWidgets.QLabel("Hello World",
-        #                              alignment=QtCore.Qt.AlignCenter)
 
         self.layout = QtWidgets.QVBoxLayout(self)
-        # self.layout.addWidget(QtWidgets.QLabel("Month"))
         self.layout.addWidget(self.month_combo)
-        # self.layout.setSpacing(4)
-        # self.layout.setContentsMargins(10, 10, 10, 10)
-        # self.layout.addWidget(self.text)
-        # self.layout.addWidget(self.new_goal_button)
         self.layout.addLayout(gdb, 0)
         self.layout.addLayout(self.expanding_space)
         self.layout.addWidget(self.new_goal_button)
@@ -165,12 +138,6 @@ class FileEditWidget(QtWidgets.QWidget):
         self.entry_list.append( curr_list )
         return curr_list
 
-        # self.layout.addStretch(1)
-        
-        # self.layout.addWidget(self.load_file_button)
-
-        # self.click_button.clicked.connect(self.magic)
-        # self.load_file_button.clicked.connect(self.pick_file_to_load)
 
     def entries_to_ChartInfo(self) -> ChartInfo:
         items = []
@@ -198,13 +165,6 @@ class FileEditWidget(QtWidgets.QWidget):
 
         # items = []
         to_save = self.entries_to_ChartInfo()
-        # for e in self.entry_list:
-        #     items.append( WorkoutItem(e[0].text(), float(e[1].text()), float(e[2].text())) )
-        #     # print(e[0].text(), float(e[1].text()), float(e[2].text()))
-        # to_save = ChartInfo(goal_list = items,
-        #                     month     = self.month_combo.currentText(),
-        #                     note      = "")
-        # print(to_save)
         
         ym = Ymlzer()
         ym.save_chart(to_save, file_path)
@@ -215,22 +175,10 @@ class FileEditWidget(QtWidgets.QWidget):
 
     @QtCore.Slot()
     def show_preview(self):
-        # base_directory="saved_charts"
-        # print("PDF saver clicked")
-        # print("Preview clicked")
         info = self.entries_to_ChartInfo()
-        chart = WorkoutChart(info = info, load_from_info=True)
+        chart = WorkoutChart(info = info) #, load_from_info=True)
         # chart.main()
         chart.make_graphics()
-        # path = os.getcwd() + "/" + base_directory
-        # file_picker = QFileDialog(self)
-        # file_picker.setDirectory(path)
-        # save_path, _ = QFileDialog.getSaveFileName(
-        #     self,
-        #     "Save a PDF",              # Dialog title
-        #     path,                       # Default path
-        #     "PDF Files (*.pdf)"  # File filters
-        # )
 
     @QtCore.Slot()
     def save_PDF(self):
@@ -247,23 +195,9 @@ class FileEditWidget(QtWidgets.QWidget):
         )
 
         info = self.entries_to_ChartInfo()
-        chart = WorkoutChart(info = info, load_from_info=True)
+        chart = WorkoutChart(info = info) #, load_from_info=True)
         # chart.main()
         chart.make_PDF(save_path)
-
-
-        # items = []
-        # for e in self.entry_list:
-        #     items.append( WorkoutItem(e[0].text(), float(e[1].text()), float(e[2].text())) )
-        #     # print(e[0].text(), float(e[1].text()), float(e[2].text()))
-        # to_save = ChartInfo(goal_list = items,
-        #                     month     = self.month_combo.currentText(),
-        #                     note      = "")
-        # print(to_save)
-
-        # ym = Ymlzer()
-        # ym.save_chart(to_save, file_path)
-            # print()
 
 def get_main_window():
     app = QtWidgets.QApplication([])

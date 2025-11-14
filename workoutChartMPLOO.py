@@ -13,7 +13,9 @@ import argparse
 # from workout_GUI import MyWidget
 
 class WorkoutChart():
-    def __init__(self, month = "January", file_folder = "saved_configs", file_name = "demo.yaml", absolute_file_path = "err", load_from_file = True, info:ChartInfo = None, load_from_info = True):
+    # def __init__(self, month = "January", file_folder = "saved_configs", file_name = "demo.yaml", absolute_file_path = "err", load_from_file = True, info:ChartInfo = None, load_from_info = True):
+    def __init__(self, info:ChartInfo = None):
+        # load_from_info = True
         self.pageWidth = 11 #inches
         self.pageHeight = 8.5
 
@@ -37,112 +39,16 @@ class WorkoutChart():
         self.panelHeight = self.pageHeight - self.topMargin - self.panelBottomLeft[1]
         #print(self.panelBottomLeft)
 
-        self.month = month
-        self.note = "*Cardio = 0.25 mi run, 30 min walk, 15 min hike, 15 min bike   Core = 30 s prone plank, 15 s side plank, 10 bench situp, 30 crunch   Chest = 10 pushups, 5x 20kg RL dumbell press"
+        # self.month = month
+        # self.note = "*Cardio = 0.25 mi run, 30 min walk, 15 min hike, 15 min bike   Core = 30 s prone plank, 15 s side plank, 10 bench situp, 30 crunch   Chest = 10 pushups, 5x 20kg RL dumbell press"
 
         self.file_info:ChartInfo = None
         self.loaded_workout_list: list[WorkoutItem]
         self.month_name: MonthName
-        self.using_file = load_from_file
+        # self.using_file = load_from_file
         self.file_info:ChartInfo
-        # if self.using_file:
-        #     # self.file_info
-        #     # self.file_info = self.load_file(file_folder + "/" + file_name)
-        #     self.file_info = self.load_file(absolute_file_path)
-        #     print(self.file_info)
-        if load_from_info:
-            self.file_info = info
-            self.using_file = True
-            
-    # def init(self):
-    #     pass
-
-    # def load_file(self, file_path):
-    #     ans:ChartInfo
-    #     with open(file_path, "r") as file:
-    #         loaded_dict = yaml.safe_load(file)
-    #         gl = []
-    #         for a in loaded_dict["workout_items"]:
-    #             n = WorkoutItem(name  = a["name"],
-    #                             boxes = a["boxes"],
-    #                             days  = a["days"])
-    #             gl.append(n)
-
-    #         ans = ChartInfo(goal_list = gl,
-    #                         month     = MonthName(loaded_dict["month"]),
-    #                         note      = loaded_dict["note"])
-    #     # print(loaded_dict)
-    #     return ans
-
-    # def info(self):
-    #     print("stuff")
-
-    def main(self):
-        #print(self.daysInMonth("February (29)"))
-        fig = plt.figure(2)
-        fig.set_size_inches(11,8.5)
-        #fig.clf()
-        ax = fig.add_subplot(1,1,1)
-        #fig.subplots_adjust(left=0.1, right=.9, top=.9, bottom=0.1)
-        fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
-        ax.set_xlim([0,self.pageWidth])
-        ax.set_ylim([0,self.pageHeight])
-        #rectangle = plt.Rectangle((4,4), 2, 1, ec='black', fc='white')
-        #ax.add_patch(rectangle)
-        ax.patch.set_visible(False)
-        ax.axis('off')
-        self.addLines(ax, self.month)
-
-        workoutList = [['Lunges x5(RL) 45kg', 2.25, 7],
-                       ['Squats x5 45kg', 2.25, 7], #bumped up weight JUL 24
-                    #    ['Pushups x10', 1.85, 1],
-                       ['Shoulder x5(RL) 5kg(RL)', 3, 7],
-                       ['Chest', 1.85, 1],
-                       ['Curl x5(RL) 15kg(RL)', 1.00, 1],
-                       ['Cardio*', 9, 7],
-                       ['PT/back exercise', 1.8, 1],
-                       ['Core', 1.5*1.1, 2]]
-        
-
-
-        # path = Path(__file__).parent / "jamesJan.csv"
-        # with path.open() as f:
-        #     test = list(csv.reader(f))
-        #     print(test)
-        #     print(workoutList)
-
-        #     # workoutList = test[1:]
-        #     used = test[1:len(test)]
-        #     print(used)
-        #     newList = []
-        #     for line in used:
-        #         entry = [str(line[0]), float(line[1]), float(line[2])]
-        #         newList.append(entry)
-            
-
-        #     workoutList = newList
-        #     print(workoutList)
-
-
-        y = 0
-        if self.using_file:
-            for wo in self.file_info.goal_list:
-                self.addRow(ax, self.panelBottomLeft[1] + y,
-                            self.file_info.month,
-                            wo.name, wo.boxes, wo.days)
-                y += self.rowHeight + self.interRowSpacing
-        else:
-            for wo in workoutList:
-                self.addRow(ax, self.panelBottomLeft[1] + y, self.month, wo[0], wo[1], wo[2])
-                y += self.rowHeight + self.interRowSpacing
-
-        self.addTitle(ax, self.month)
-        self.addNote(ax, self.note)
-
-        plt.margins(0,0)
-        plt.savefig(self.month + ".pdf")
-
-        plt.show()
+        self.file_info = info
+        self.using_file = True
 
     def make_graphics(self, preview = True) -> plt.Figure:
         #print(self.daysInMonth("February (29)"))
@@ -158,7 +64,7 @@ class WorkoutChart():
         #ax.add_patch(rectangle)
         ax.patch.set_visible(False)
         ax.axis('off')
-        self.addLines(ax, self.month)
+        self.addLines(ax, self.file_info.month.value)
 
         y = 0
         for wo in self.file_info.goal_list:
@@ -191,7 +97,7 @@ class WorkoutChart():
         #ax.add_patch(rectangle)
         ax.patch.set_visible(False)
         ax.axis('off')
-        self.addLines(ax, self.month)
+        self.addLines(ax, self.file_info.month.value) #self.month)
 
         y = 0
         for wo in self.file_info.goal_list:
@@ -234,7 +140,6 @@ class WorkoutChart():
         return dict.get(mo)
 
     def addLines(self, axes, month):
-        
         if self.using_file:
             totalDays = self.daysInEnumMonth(self.file_info.month)
         else:
@@ -380,13 +285,14 @@ def run_hardcoded():
     output_name = "HC_chart.pdf" # Include .pdf extension
     #############
 
+    ## Leave the rest of the function alone ##
     items = []
     for e in workoutList:
         items.append( WorkoutItem(e[0], e[1], e[2]) )
     info = ChartInfo(goal_list = items,
                      month     = month,
                      note      = note)
-    chart = WorkoutChart(info=info, load_from_info=True)
+    chart = WorkoutChart(info=info) #, load_from_info=True)
     chart.make_graphics(preview = True)
     chart.make_PDF("saved_charts/" + output_name)
 
@@ -409,7 +315,7 @@ if __name__ == "__main__":
     if args.demo:
         print("Running demo, using demo.yaml...")
         a = Ymlzer.load_file("saved_configs/demo.yaml")
-        c = WorkoutChart(info=a, load_from_info=True)
+        c = WorkoutChart(info=a)
         c.make_PDF("saved_charts/demo_output.pdf", preview=True)
         sys.exit(0)
     elif (args.input_file == None) ^ (args.output_file == None):
@@ -419,7 +325,7 @@ if __name__ == "__main__":
         print("Running headless with user-specified YAML file...")
         # path_to_input = Path("saved_configs/")
         a = Ymlzer.load_file(args.input_file)
-        b = WorkoutChart(info=a, load_from_info=True)
+        b = WorkoutChart(info=a)
         b.make_PDF(args.output_file)
         sys.exit(0)
     else:
