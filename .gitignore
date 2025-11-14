@@ -4,3 +4,4 @@ vscws.code-workspace
 *.code-workspace
 settings.json
 /venv
+/cleanvenv
