@@ -1,15 +1,16 @@
-from graphics import *
+# from graphics import *
 from DataClasses import MonthName, WorkoutItem, ChartInfo
-import math
+# import math
 import matplotlib.pyplot as plt
 import numpy as np
 from dataclasses import asdict, dataclass
 from textwrap import fill
-import json
-import csv
+# import json
+# import csv
 import yaml
 from pathlib import Path
 import argparse
+import sys
 # from workout_GUI import MyWidget
 
 class WorkoutChart():
