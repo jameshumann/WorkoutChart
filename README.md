@@ -9,6 +9,9 @@ Each workout goal has 3 elements: name, boxes, and days. The boxes represent wha
 ## Use
 The main Python script is ```workoutChartMPLOO.py```
 Install all of the dependencies (ideally in a virtual environment) and run this script.
+
+To use a virtual environment (may need to tailor to non-Windows systems): ```python -m venv venv```, then ```./venv/Scripts/activate``` . Then install dependencies using pip: ```pip install -r requirements.txt``` .
+
 The command ```python workoutChartMPLOO.py --demo``` will run a quick demo to test that the software is working.
 
 The default folders are ```saved_charts``` saved PDF charts, and ```saved_configs``` for YAML chart information files. Use these folders for the most consistent results.
