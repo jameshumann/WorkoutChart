@@ -1,0 +1,29 @@
+goal_list:
+- name: Lunges x5(RL) 45kg
+  boxes: 2.25
+  days: 7.0
+- name: Squats x5 45kg
+  boxes: 2.25
+  days: 7.0
+- name: Shoulder x5(RL) 7.5kg(RL)
+  boxes: 1.0
+  days: 2.0
+- name: Chest
+  boxes: 1.85
+  days: 1.0
+- name: Curl x5(RL) 15kg(RL)
+  boxes: 1.0
+  days: 1.0
+- name: Cardio*
+  boxes: 9.0
+  days: 7.0
+- name: PT/back exercise
+  boxes: 1.8
+  days: 1.0
+- name: Core
+  boxes: 1.65
+  days: 2.0
+month: DECEMBER
+note: '*Cardio = 0.25 mi run, 30 min walk, 15 min hike, 15 min bike   Core = 30 s
+  prone plank, 15 s side plank, 10 bench situp, 30 crunch   Chest = 10 pushups, 5x
+  20kg RL dumbell press'

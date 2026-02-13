@@ -141,7 +141,7 @@ class FileEditWidget(QtWidgets.QWidget):
             items.append( WorkoutItem(e[0].text(), float(e[1].text()), float(e[2].text())) )
             # print(e[0].text(), float(e[1].text()), float(e[2].text()))
         info = ChartInfo(goal_list = items,
-                         month     = MonthName[self.month_combo.currentText()],
+                         month     = MonthName(self.month_combo.currentText()), #[self.month_combo.currentText()],
                          note      = self.note_box.toPlainText())
         return info
 

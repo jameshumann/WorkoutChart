@@ -53,6 +53,7 @@ class WorkoutChart():
 
     def make_graphics(self, preview = True) -> plt.Figure:
         #print(self.daysInMonth("February (29)"))
+        self.reset_all_plots()
         fig = plt.figure(2)
         fig.set_size_inches(11,8.5)
         #fig.clf()
@@ -84,8 +85,13 @@ class WorkoutChart():
 
         return fig
 
+    def reset_all_plots(self):
+        plt.clf()
+        plt.close('all')
+
     def make_PDF(self, save_path:str, preview = False):
         #print(self.daysInMonth("February (29)"))
+        self.reset_all_plots()
         fig = plt.figure(2)
         fig.set_size_inches(11,8.5)
         #fig.clf()
@@ -120,7 +126,7 @@ class WorkoutChart():
 
 
     def daysInMonth(self,mo):
-        dict = {'January':31,'February (28)':28,'February (29)':29,'March':31,'April':30,'May':31,'June':30,'July':31,'August':31,'September':30,'October':31,'November':30,'December':31}
+        dict = {'January':31,'February(28)':28,'February(29)':29,'March':31,'April':30,'May':31,'June':30,'July':31,'August':31,'September':30,'October':31,'November':30,'December':31}
         return dict.get(mo)
     
     def daysInEnumMonth(self,mo:MonthName):
